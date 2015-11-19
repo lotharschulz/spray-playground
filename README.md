@@ -3,5 +3,10 @@
 trying spray scala things out
 
 ### run tests
-```sbt```  
-```~test```
+```
+sbt
+```  
+
+```
+~ ;clean ;test # triggered clean tests
+```
