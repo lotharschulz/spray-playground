@@ -6,7 +6,8 @@
 [![codecov.io](https://codecov.io/github/lotharschulz/spray-playground/coverage.svg?branch=master)](https://codecov.io/github/lotharschulz/spray-playground?branch=master)
 [![Coverage Status](https://coveralls.io/repos/lotharschulz/spray-playground/badge.svg?branch=master&service=github)](https://coveralls.io/github/lotharschulz/spray-playground?branch=master)
 
-![codecov.io](http://codecov.io/github/lotharschulz/spray-playground/branch.svg?branch=master) 
+![codecov.io](http://codecov.io/github/lotharschulz/spray-playground/branch.svg?branch=master)   
+
 trying spray scala things out
 
 ### run tests
