@@ -9,4 +9,4 @@ script:
   - ./codacy-build.sh
 after_success:
   - codecov
-  - sbt coveralls
+  - coveralls
