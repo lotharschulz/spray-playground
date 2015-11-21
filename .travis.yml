@@ -1,7 +1,11 @@
 language: scala
-scala:
-   - 2.11.6
 before_install:
   - pip install --user codecov
+scala:
+   - 2.11.6
+jdk:
+  - oraclejdk8
+script:
+  - ./codacy-build.sh
 after_success:
   - codecov

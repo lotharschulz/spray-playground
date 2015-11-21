@@ -6,7 +6,7 @@ version       := "0.1"
 
 scalaVersion  := "2.11.6"
 
-scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
+scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8", "-Xlint", "-Ywarn-adapted-args", "-Xfatal-warnings", "-feature")
 
 libraryDependencies ++= {
   val akkaV = "2.3.9"
@@ -31,3 +31,18 @@ libraryDependencies ++= {
 // intelliJ
 // http://stackoverflow.com/questions/19578611/idea-complains-about-revolver-settings-when-trying-to-parse-spray-templates-bui
 Revolver.settings: Seq[sbt.Def.Setting[_]]
+
+pomExtra :=
+  <scm>
+    <url>https://github.com/lotharschulz/spray-playground</url>
+    <connection>scm:git:git@github.com:lotharschulz/spray-playground.git</connection>
+    <developerConnection>scm:git:https://github.com/lotharschulz/spray-playground.git</developerConnection>
+  </scm>
+    <developers>
+      <developer>
+        <id>lotharschulz</id>
+        <name>lothar</name>
+        <email>mail[at]lothar[minus]schulz[dot]info</email>
+        <url>https://github.com/lotharschulz</url>
+      </developer>
+    </developers>
