@@ -1,12 +1,13 @@
 package info.lotharschulz
 
+import akka.actor.{Actor, Props}
 import org.specs2.mutable.Specification
-import spray.testkit.Specs2RouteTest
 import spray.http._
+import spray.testkit.Specs2RouteTest
 
 class MyServiceSpec extends Specification with Specs2RouteTest with MyService {
   def actorRefFactory = system
-  
+
   "MyService" should {
 
     "return hello for GET requests to the root path" in {
@@ -41,3 +42,18 @@ class MyServiceSpec extends Specification with Specs2RouteTest with MyService {
     }
   }
 }
+/*
+
+
+class MyServiceActorSpec extends Actor{ /*   */
+//  "MyServiceActor" should {
+//    "contain a context" in {
+      val msa = context.actorOf(Props[MyServiceActor], "msa")
+      //msa must not be None
+      assert(msa != None)
+//    }
+//  }
+  def receive:Receive = {
+    case _ => context.stop(self)
+  }
+}*/

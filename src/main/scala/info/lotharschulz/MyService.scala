@@ -1,14 +1,14 @@
 package info.lotharschulz
 
-import akka.actor.{ActorLogging, Actor}
+import akka.actor.{ActorContext, ActorLogging, Actor}
 import info.lotharschulz.domain.{Author, Book}
 import spray.routing._
 import spray.http._
 
 class MyServiceActor extends Actor with MyService with ActorLogging{
 
-  def actorRefFactory = context
-  def receive = runRoute(route)
+  def actorRefFactory:ActorContext = context
+  def receive:Receive = runRoute(route)
 }
 
 trait MyService extends HttpService {
