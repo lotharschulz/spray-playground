@@ -17,7 +17,7 @@
         </layout>
     </appender>
 
-    <logger name="info.lotharschulz.rest01" level="debug" additivity="false">
+    <logger name="info.lotharschulz.sprayplaground" level="debug" additivity="false">
         <appender-ref ref="console" />
     </logger>
 

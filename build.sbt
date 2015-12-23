@@ -1,12 +1,10 @@
 organization  := "info.lotharschulz"
-
-name          := "rest01"
-
+name          := "spray-playground-01"
 version       := "0.1"
-
-scalaVersion  := "2.11.6"
+scalaVersion  := "2.11.7"
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8", "-Xlint", "-Ywarn-adapted-args", "-Xfatal-warnings", "-feature")
+javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
 libraryDependencies ++= {
   val akkaV = "2.3.9"
@@ -16,13 +14,15 @@ libraryDependencies ++= {
     ,"io.spray"           %%  "spray-routing" % sprayV
     ,"io.spray"           %%  "spray-httpx"   % sprayV
     ,"io.spray"           %%  "spray-testkit" % sprayV  % "test"
-    ,"io.spray"           %%  "spray-json"    % "1.3.2"
+
+    ,"org.json4s"         %%  "json4s-native"  % "3.3.0"
 
     ,"com.typesafe.akka"  %%  "akka-actor"    % akkaV
     ,"com.typesafe.akka"  %%  "akka-slf4j"    % akkaV
-    ,"com.typesafe.akka"  %%  "akka-testkit"  % akkaV   % "test"
+    ,"com.typesafe.akka"  %%  "akka-testkit"  % akkaV    % "test"
 
     ,"org.specs2"         %%  "specs2-core"   % "2.3.11" % "test"
+    ,"org.scalatest"      %%  "scalatest"     % "2.2.2"  % "test"
 
     ,"ch.qos.logback"     %   "logback-classic" % "1.1.3"
   )

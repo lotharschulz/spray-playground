@@ -1,27 +1,53 @@
 package info.lotharschulz
 
-import akka.actor.{ActorContext, ActorLogging, Actor}
-import info.lotharschulz.domain.{Author, Book}
+import java.util.concurrent.TimeUnit
+
+import akka.actor.Props
+import akka.util.Timeout
+import info.lotharschulz.book.BookActor
+import org.json4s.{Formats, DefaultFormats}
+import spray.http.StatusCodes._
+import spray.httpx.Json4sSupport
 import spray.routing._
-import spray.http._
+import akka.pattern.ask
 
-class MyServiceActor extends Actor with MyService with ActorLogging{
-
-  def actorRefFactory:ActorContext = context
-  def receive:Receive = runRoute(route)
+object Json4sProtocol extends Json4sSupport {
+  implicit def json4sFormats: Formats = DefaultFormats
 }
 
+case class Entity(payload: String)
+
 trait MyService extends HttpService {
+  import Json4sProtocol._
+  import BookActor._
 
-  val defaultRoute = {
-    path("") & get & respondWithMediaType(MediaTypes.`application/json`) & complete((spray.http.StatusCodes.OK ,"{\nhello\n}"))
-  }
-  val bookRoute = {
-    path("book") & get & respondWithMediaType(MediaTypes.`application/json`) & complete((spray.http.StatusCodes.OK ,Book("title").toString))
-  }
-  val authorRoute = {
-    path("author") & get & respondWithMediaType(MediaTypes.`application/json`) & complete((spray.http.StatusCodes.OK , Author("author's name").toString ))
+  implicit def executionContext = actorRefFactory.dispatcher
+  implicit val timeout = Timeout.apply(5L, TimeUnit.SECONDS)
+
+  val bookworker = actorRefFactory.actorOf(Props[BookActor], "worker")
+
+  val route = {
+    path("book") {
+      get {
+        complete(List(Entity("smth"), Entity("smth more")))
+      } ~
+        post {
+          respondWithStatus(Created) {
+            entity(as[Entity]) { someObject =>
+              doCreate(someObject)
+            }
+          }
+        }
+    }
   }
 
-  val route = defaultRoute ~ bookRoute ~ authorRoute
+  def doCreate[T](ent: Entity) = {
+    complete {
+      (bookworker ? Create(ent))
+        .mapTo[BookActor]
+        .map(result => s"I got a response: ${result}")
+        .recover { case _ => "error" }
+    }
+  }
+
 }

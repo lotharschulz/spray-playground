@@ -20,5 +20,5 @@ sbt
 ```
 
 ```
-~ ;clean ;test # triggered clean tests
+~ ;clean ;reload ;test # triggered clean reloaded tests
 ```
