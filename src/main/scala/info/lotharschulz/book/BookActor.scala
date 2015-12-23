@@ -15,5 +15,6 @@ class BookActor extends Actor with ActorLogging {
       log.info(s"Create ${ent}")
       sender ! Book("new title")
     }
+    case _ => log.error("default case triggered")
   }
 }
