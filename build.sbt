@@ -1,5 +1,5 @@
 organization  := "info.lotharschulz"
-name          := "spray-playground-01"
+name          := "spray-playground"
 version       := "0.1"
 scalaVersion  := "2.11.7"
 
@@ -13,9 +13,8 @@ libraryDependencies ++= {
     "io.spray"            %%  "spray-can"     % sprayV
     ,"io.spray"           %%  "spray-routing" % sprayV
     ,"io.spray"           %%  "spray-httpx"   % sprayV
+    ,"io.spray"           %%  "spray-json"    % "1.3.2"
     ,"io.spray"           %%  "spray-testkit" % sprayV  % "test"
-
-    ,"org.json4s"         %%  "json4s-native"  % "3.3.0"
 
     ,"com.typesafe.akka"  %%  "akka-actor"    % akkaV
     ,"com.typesafe.akka"  %%  "akka-slf4j"    % akkaV
