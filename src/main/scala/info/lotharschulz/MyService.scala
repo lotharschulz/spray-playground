@@ -11,12 +11,12 @@ import spray.routing._
 
 case class Book(title: String)
 
-object Json4sProtocol extends DefaultJsonProtocol with SprayJsonSupport {
-  implicit val PortfolioFormats = jsonFormat1(Book)
+object BookJsonFormat extends DefaultJsonProtocol with SprayJsonSupport {
+  implicit val BookFormat = jsonFormat1(Book)
 }
 
 trait MyService extends HttpService {
-  import Json4sProtocol._
+  import BookJsonFormat._
 
   implicit def executionContext = actorRefFactory.dispatcher
   implicit val timeout = Timeout.apply(5L, TimeUnit.SECONDS)
@@ -26,14 +26,16 @@ trait MyService extends HttpService {
       get {
         complete(List(Book("smth"), Book("smth more")))
       } ~
-        post {
-          respondWithMediaType(MediaType.custom("application/json")) {
-            formFields('title.as[String]) { (title) =>
-              complete {"{\"book\": { \"title\":\"%s\"]} }" format (title)
-              }
-            }
+      post {
+        //respondWithMediaType(MediaType.custom("application/json")) {
+          //entity(as[Book]){ book =>
+          entity(as[String]){ book =>
+              //println("book.title : %s" format (book.title) )
+              println("book.title: %s" format (book) )
+              complete (book)
           }
-        }
+        //}
+      }
     }
   }
 }
