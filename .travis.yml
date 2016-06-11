@@ -5,8 +5,8 @@ scala:
    - 2.11.6
 jdk:
   - oraclejdk8
-script:
-  - ./codacy-build.sh
+#script:
+#  - ./codacy-build.sh
 after_success:
   - codecov
   - sbt coveralls
