@@ -5,7 +5,7 @@ scala:
    - 2.11.6
 jdk:
   - oraclejdk8
-#script:
+script: "sbt clean coverage test"
 #  - ./codacy-build.sh
 after_success:
   - codecov
