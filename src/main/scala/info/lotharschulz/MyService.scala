@@ -27,14 +27,17 @@ trait MyService extends HttpService {
         complete(List(Book("smth"), Book("smth more")))
       } ~
       post {
-        //respondWithMediaType(MediaType.custom("application/json")) {
-          //entity(as[Book]){ book =>
-          entity(as[String]){ book =>
+        respondWithMediaType(MediaType.custom("application/json")) {
+          entity(as[Book]){ book:Book =>
+            ctx: RequestContext =>
+          //entity(as[String]){ book =>
               //println("book.title : %s" format (book.title) )
               println("book.title: %s" format (book) )
-              complete (book)
+              ctx.complete{
+                StatusCodes.Created -> book
+              }
           }
-        //}
+        }
       }
     }
   }

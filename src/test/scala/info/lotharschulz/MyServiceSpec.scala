@@ -1,7 +1,7 @@
 package info.lotharschulz
 
 import org.specs2.mutable.Specification
-import spray.http.{HttpEntity, ContentType, StatusCodes, MediaTypes}
+import spray.http._
 import spray.testkit.Specs2RouteTest
 
 class MyServiceSpec extends Specification with Specs2RouteTest with MyService  {
@@ -24,10 +24,10 @@ class MyServiceSpec extends Specification with Specs2RouteTest with MyService  {
 
   "MyService" should {
     "create a new book" in {
-      //Post("/book", HttpEntity(ContentType(`application/json`, `UTF-8`), jsonBook)) ~> route ~> check {
-      Post("/book", jsonBook) ~> route ~> check {
-        println("mediaType: %s" format (mediaType))
-        status === StatusCodes.OK
+      Post("/book", HttpEntity(MediaTypes.`application/json`, jsonBook)) ~> route ~> check {
+        response.status should be equalTo StatusCodes.Created
+        mediaType should be equalTo MediaTypes.`application/json`
+        entity.asString === "{\n  \"title\": \"icke\"\n}"
       }
     }
   }
